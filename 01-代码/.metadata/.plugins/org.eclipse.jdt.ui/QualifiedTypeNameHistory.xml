@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="com.sun.org.apache.xpath.internal.operations.Plus"/>
+    <fullyQualifiedTypeName name="com.sun.xml.internal.ws.api.pipe.Fiber"/>
+    <fullyQualifiedTypeName name="com.ad.TimeTool"/>
+    <fullyQualifiedTypeName name="com.ad.TimeTool.Task"/>
+    <fullyQualifiedTypeName name="com.mj.TimeTool.Task"/>
+    <fullyQualifiedTypeName name="com.mj.Main"/>
+    <fullyQualifiedTypeName name="com.ad.ArrayList"/>
+    <fullyQualifiedTypeName name="java.lang.StringBuilder"/>
+    <fullyQualifiedTypeName name="com.ad.Assert"/>
+    <fullyQualifiedTypeName name="com.ad.Person"/>
+    <fullyQualifiedTypeName name="sun.jvm.hotspot.oops.java_lang_Class"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.lang.IndexOutOfBoundsException"/>
+    <fullyQualifiedTypeName name="E"/>
+    <fullyQualifiedTypeName name="java.lang.Object"/>
+</qualifiedTypeNameHistroy>

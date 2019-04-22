@@ -1,0 +1,41 @@
+package com.ad;
+
+import com.ad.TimeTool.Task;
+
+/**
+ * @author jingshi
+ *
+ */
+public class Main {
+	
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+//		System.out.println(fib1(50));
+		
+		TimeTool.check("fib1", new Task() {
+			
+			@Override
+			public void execute() {
+				System.out.println(fib1(35));
+			}
+		});
+	}
+
+
+	/*
+	 * 菲波那切数列 : fibonacci number
+	 * 0 1 1 2 3 5 8 13 ...
+	 */
+	public static int fib1(int n) {
+		if (n < 0) return 0;
+		
+		if (n <= 1) 
+			return n;
+		
+		return fib1(n - 1) + fib1(n - 2);
+	}
+		
+
+}
