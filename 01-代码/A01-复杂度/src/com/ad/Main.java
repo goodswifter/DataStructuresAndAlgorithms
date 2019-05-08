@@ -1,6 +1,6 @@
 package com.ad;
 
-import com.ad.TimeTool.Task;
+import com.ad.TimeUtil.Task;
 
 /**
  * @author jingshi
@@ -135,7 +135,7 @@ public class Main {
 		int num = 45;
 		
 		// fib1 所用时间 : 0.44秒
-		TimeTool.check("fib1", new Task() {
+		TimeUtil.test("fib1", new Task() {
 			
 			@Override
 			public void execute() {
@@ -144,7 +144,7 @@ public class Main {
 		});
 		
 		// fib2 所用时间 : 0.0秒
-		TimeTool.check("fib2", new Task() {
+		TimeUtil.test("fib2", new Task() {
 			
 			@Override
 			public void execute() {
