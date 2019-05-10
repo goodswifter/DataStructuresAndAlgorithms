@@ -83,4 +83,14 @@
 		<item key="DIALOG_HEIGHT" value="618"/>
 		<item key="DIALOG_FONT_NAME" value="1|.AppleSystemUIFont|11.0|0|COCOA|1|.AppleSystemUIFont"/>
 	</section>
+	<section name="AddUnimplementedConstructorsDialog">
+		<item key="OmitCallToSuper" value="false"/>
+	</section>
+	<section name="DialogBounds_AddUnimplementedConstructorsDialog">
+		<item key="DIALOG_X_ORIGIN" value="586"/>
+		<item key="DIALOG_Y_ORIGIN" value="133"/>
+		<item key="DIALOG_WIDTH" value="508"/>
+		<item key="DIALOG_HEIGHT" value="570"/>
+		<item key="DIALOG_FONT_NAME" value="1|.AppleSystemUIFont|11.0|0|COCOA|1|.AppleSystemUIFont"/>
+	</section>
 </section>

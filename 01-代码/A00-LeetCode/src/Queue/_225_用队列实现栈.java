@@ -32,14 +32,21 @@ public class _225_用队列实现栈 {
     
     /** Removes the element on top of the stack and returns that element. */
     public int pop() {
+    	if (queueA == null) return 0;
+   
         while (queueA.size() > 1) {
 			queueB.add(queueA.poll());
 		}
-        return queueB.poll();
+        int topE = queueA.poll();
+        queueA = queueB;
+        queueB = new LinkedList<>();
+        return topE;
     }
     
     /** Get the top element. */
     public int top() {
+    	if (queueA == null) return 0;
+    	
     	while (queueA.size() > 1) {
 			queueB.add(queueA.poll());
 		}

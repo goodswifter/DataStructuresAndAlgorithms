@@ -5,6 +5,13 @@ import java.util.Stack;
 /**
  * https://leetcode-cn.com/problems/implement-queue-using-stacks/submissions/
  * 
+ * 思路:
+ * 1. 准各2个栈: inStack、 outStack
+ * 2. 入队时，push到inStack中
+ * 3. 出队时
+ * 	  > 如果outStack空, 将inStack所有元素逐一弹出， push到outStack, outStack弹出栈顶元素
+ * 	  > 如果outStack不为空，outStack贪出栈顶元素
+ * 
  * @author goodswifter
  *
  */

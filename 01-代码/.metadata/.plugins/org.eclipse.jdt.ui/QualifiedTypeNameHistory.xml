@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="com.sun.org.apache.xpath.internal.operations.Plus"/>
-    <fullyQualifiedTypeName name="com.sun.xml.internal.ws.api.pipe.Fiber"/>
     <fullyQualifiedTypeName name="com.ad.TimeTool"/>
     <fullyQualifiedTypeName name="com.ad.TimeTool.Task"/>
     <fullyQualifiedTypeName name="com.mj.TimeTool.Task"/>
@@ -10,7 +8,6 @@
     <fullyQualifiedTypeName name="com.ad.Assert"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="java.lang.IndexOutOfBoundsException"/>
-    <fullyQualifiedTypeName name="java.awt.List"/>
     <fullyQualifiedTypeName name="com.ad.AbstractList"/>
     <fullyQualifiedTypeName name="java.lang.Class"/>
     <fullyQualifiedTypeName name="com.sun.corba.se.impl.orbutil.graph.Node"/>
@@ -23,7 +20,6 @@
     <fullyQualifiedTypeName name="com.sun.deploy.jcp.controller.DeleteFiles"/>
     <fullyQualifiedTypeName name="LinkedList.ListNode"/>
     <fullyQualifiedTypeName name="com.ad.linkedlist.SingleLinkedList2.Node"/>
-    <fullyQualifiedTypeName name="java.lang.Object"/>
     <fullyQualifiedTypeName name="com.ad.linkedlist.LinkedList.Node"/>
     <fullyQualifiedTypeName name="com.ad.AssertUtil"/>
     <fullyQualifiedTypeName name="com.ad.arraylist.ArrayList2"/>
@@ -33,16 +29,13 @@
     <fullyQualifiedTypeName name="com.sun.tools.classfile.StackMapTable_attribute.append_frame"/>
     <fullyQualifiedTypeName name="com.ad.circlelinkedlist.SingleCircleLinkedList.Node"/>
     <fullyQualifiedTypeName name="sun.jvm.hotspot.oops.java_lang_Class"/>
-    <fullyQualifiedTypeName name="java.util.LinkedList"/>
     <fullyQualifiedTypeName name="com.ad.circlelinkedlist.CircleLinkedList"/>
     <fullyQualifiedTypeName name="java.lang.NullPointerException"/>
     <fullyQualifiedTypeName name="com.ad.circlelinkedlist.CircleLinkedList2.Node"/>
-    <fullyQualifiedTypeName name="E"/>
     <fullyQualifiedTypeName name="com.ad.List"/>
     <fullyQualifiedTypeName name="java.lang.Enum"/>
     <fullyQualifiedTypeName name="com.ad.circlelinkedlist.CircleLinkedList2"/>
     <fullyQualifiedTypeName name="com.ad.circlelinkedlist.List2"/>
-    <fullyQualifiedTypeName name="com.ad.list.List"/>
     <fullyQualifiedTypeName name="com.ad.list.ArrayList"/>
     <fullyQualifiedTypeName name="java.util.HashMap"/>
     <fullyQualifiedTypeName name="com.sun.org.apache.bcel.internal.generic.IFLE"/>
@@ -52,8 +45,19 @@
     <fullyQualifiedTypeName name="com.sun.tools.classfile.Opcode.Set"/>
     <fullyQualifiedTypeName name="java.util.Set"/>
     <fullyQualifiedTypeName name="java.util.HashSet"/>
-    <fullyQualifiedTypeName name="java.lang.Integer"/>
     <fullyQualifiedTypeName name="com.sun.tools.javac.util.StringUtils"/>
     <fullyQualifiedTypeName name="java.lang.String"/>
+    <fullyQualifiedTypeName name="java.awt.List"/>
+    <fullyQualifiedTypeName name="com.ad.list.List"/>
+    <fullyQualifiedTypeName name="com.ad.list.LinkedList"/>
+    <fullyQualifiedTypeName name="javax.swing.undo.StateEdit"/>
     <fullyQualifiedTypeName name="java.util.Stack"/>
+    <fullyQualifiedTypeName name="java.lang.Object"/>
+    <fullyQualifiedTypeName name="E"/>
+    <fullyQualifiedTypeName name="com.ad.circle.CircleQueue"/>
+    <fullyQualifiedTypeName name="com.ad.circle.CircleDeque"/>
+    <fullyQualifiedTypeName name="java.lang.Integer"/>
+    <fullyQualifiedTypeName name="java.util.Deque"/>
+    <fullyQualifiedTypeName name="java.util.Queue"/>
+    <fullyQualifiedTypeName name="java.util.LinkedList"/>
 </qualifiedTypeNameHistroy>
