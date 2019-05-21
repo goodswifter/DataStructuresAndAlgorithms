@@ -1,16 +1,45 @@
 package com.ad;
 
 import java.util.Comparator;
-
 import com.ad.printer.BinaryTreeTool;
+import com.ad.BinarySearchTree.Visitor;
 import com.ad.file.FileTool;
 import com.ad.printer.BinaryTreeInfo;
 
 public class Main {
 
 	public static void main(String[] args) {
-		test4();
+		test5();
 	}
+	
+	public static void test5() {
+		Integer[] datas = new Integer[] {
+			7, 4, 9, 2, 5, 8, 11, 1, 3, 10, 12
+//			1, 2, 3, 4, 5, 8, 10, 11, 12
+		};
+		
+		BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+		for (int i = 0; i < datas.length; i++) {
+			bst.add(datas[i]);
+		}
+		
+		// 前序遍历 : 7, 4, 2, 1, 3, 5, 9, 8, 11, 10, 12
+//		bst.preorderTraversal();
+
+		// 中序遍历(升序) : 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12
+		// 中序遍历(升序) : 12, 11, 10, 9, 8, 7, 5, 4, 3, 2, 1
+		bst.inorderTraversal();
+		
+//		bst.levelOrderTraversal(new Visitor<Integer>() {
+//			
+//			@Override
+//			public void visit(Integer element) {
+//				System.out.println("_" + (element + 3) + "_");
+//			}
+//		});
+		BinaryTreeTool.print(bst);
+	}
+	
 	
 	public static void test4() {
 		BinarySearchTree<Integer> bst = new BinarySearchTree<>();

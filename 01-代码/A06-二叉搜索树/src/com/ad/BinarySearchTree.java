@@ -1,6 +1,8 @@
 package com.ad;
 
 import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import com.ad.printer.BinaryTreeInfo;
 
@@ -72,6 +74,102 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 	}
 	
 	/**
+	 * 外界提供方法, 如何打印这个元素
+	 *
+	 * @param <E>
+	 */
+	public static interface Visitor<E> {
+		void visit(E element);
+	}
+	
+	/**
+	 * 前序遍历
+	 */
+	public void preorderTraversal(Visitor<E> visitor) {
+		preorderTraversal(root, visitor);
+	}
+	
+	public void preorderTraversal() {
+		preorderTraversal(root, new Visitor<>() {
+			@Override
+			public void visit(E element) {
+				System.out.println(element);
+			}
+		});
+	}
+	
+	private void preorderTraversal(Node<E> node, Visitor<E> visitor) {
+		if (node == null) return;
+		
+		visitor.visit(node.element);
+		preorderTraversal(node.left, visitor);
+		preorderTraversal(node.right, visitor);
+	}
+	
+	/**
+	 * 中序遍历
+	 */
+	public void inorderTraversal() {
+		inorderTraversal(root);
+	}
+	
+	// 中序遍历分升序和降序两种
+	private void inorderTraversal(Node<E> node) {
+		if (node == null) return;
+		
+		inorderTraversal(node.left);
+		System.out.println(node.element);
+		inorderTraversal(node.right);
+	}
+	
+	/**
+	 * 后序遍历
+	 */
+	public void postorderTraversal() {
+		postorderTraversal(root);
+	}
+	
+	private void postorderTraversal(Node<E> node) {
+		if (node == null) return;
+		
+		postorderTraversal(node.left);
+		postorderTraversal(node.right);
+		System.out.println(node.element);
+	}
+	
+	/**
+	 * 层序遍历
+	 */
+	public void levelOrderTraversal(Visitor<E> visitor) {
+		if (root == null || visitor == null) return;
+		
+		Queue<Node<E>> queue = new LinkedList<>();
+		queue.offer(root);
+		
+		while (!queue.isEmpty()) {
+			Node<E> node = queue.poll();
+			visitor.visit(node.element);;
+			
+			if (node.left != null) {
+				queue.offer(node.left);
+			}
+			
+			if (node.right != null) {
+				queue.offer(node.right);
+			}
+		}
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public void levelOrderTraversal() {
+		levelOrderTraversal(new Visitor() {
+			public void visit(Object element) {
+				System.out.println(element);
+			}
+		});
+	}
+	
+	/**
 	 * @return 返回值等于0，代表e1和e2相等；返回值大于0，代表e1大于e2；返回值小于于0，代表e1小于e2
 	 */
 	private int compare(E e1, E e2) {
@@ -105,7 +203,13 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 
 	@Override
 	public Object string(Object node) {
-		return ((Node<E>)node).element;
+		Node<E> n = (Node<E>)node;
+		String parentString = "null";
+		if (n.parent != null) {
+			parentString = n.parent.element.toString();
+		}
+		
+		return n.element + "_p(" + parentString + ")";
 	}
 	
 	private static class Node<E> {
