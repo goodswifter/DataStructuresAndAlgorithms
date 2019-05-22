@@ -13,8 +13,10 @@ public class Main {
 	}
 	
 	public static void test5() {
+		
 		Integer[] datas = new Integer[] {
-			7, 4, 9, 2, 5, 8, 11, 1, 3, 10, 12
+//			7, 4, 9, 2, 5, 8, 11, 1, 3, 10, 12
+			7, 4, 9, 2, 5, 11
 //			1, 2, 3, 4, 5, 8, 10, 11, 12
 		};
 		
@@ -22,13 +24,16 @@ public class Main {
 		for (int i = 0; i < datas.length; i++) {
 			bst.add(datas[i]);
 		}
+//		for (int i = 0; i < 20; i++) {
+//			bst.add((int)(Math.random() * 100));
+//		}
 		
 		// 前序遍历 : 7, 4, 2, 1, 3, 5, 9, 8, 11, 10, 12
 //		bst.preorderTraversal();
 
 		// 中序遍历(升序) : 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12
 		// 中序遍历(升序) : 12, 11, 10, 9, 8, 7, 5, 4, 3, 2, 1
-		bst.inorderTraversal();
+//		bst.inorderTraversal();
 		
 //		bst.levelOrderTraversal(new Visitor<Integer>() {
 //			
@@ -38,6 +43,7 @@ public class Main {
 //			}
 //		});
 		BinaryTreeTool.print(bst);
+		System.out.println(bst.isComplete());
 	}
 	
 	
