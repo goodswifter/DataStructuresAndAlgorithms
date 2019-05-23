@@ -5,9 +5,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import com.ad.printer.BinaryTreeInfo;
-import com.mj.BinarySearchTree.Node;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "unused"})
 public class BinarySearchTree<E> implements BinaryTreeInfo {
 	private int size;
 	private Node<E> root;
@@ -31,7 +30,8 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 	}
 
 	public void clear() {
-		
+		root = null;
+		size = 0;
 	}
 	
 	public void add(E element) {
@@ -72,6 +72,109 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 		}
 		
 		size++;
+	}
+	
+	public void remove(E element) {
+		remove(node(element));
+	}
+	
+	/**
+	 * 根据元素内容获取节点
+	 */
+	private Node<E> node(E element) {
+		elementNotNullCheck(element);
+		
+		Node<E> node = root;
+		while (node != null) {
+			int cmp = compare(element, node.element);
+			if (cmp == 0) return node;
+			if (cmp > 0) {
+				node = node.right;
+			} else {
+				node = node.left;
+			}
+		}
+		return node;
+	}
+	
+	/**
+	 * 分析:
+	 * 删除节点有三种情况:
+	 * 
+	 * 1. 删除 `度为2` 的节点
+	 * 		先用前驱或者后继节点的值覆盖原节点的值
+	 * 		然后删除相应的前驱或者后继节点
+	 * 		它的前驱或者后继节点的度只可能是 1 或者 0
+	 * 
+	 * 2. 删除 `度为1` 的节点
+	 * 		用子节点代替原节点的位置, 也就是用 child 替代 node 的位置
+	 * 		2.1 如果 child 是 node 的左子节点
+	 * 			child.parent = node.parent
+	 * 			node.parent.left = child
+	 * 
+	 * 		2.2 如果 child 是 node 的右子节点
+	 * 			child.parent = node.parent
+	 * 			node.parent.right = child
+	 * 
+	 * 		2.3 如果 node 是根节点
+	 * 			root = child
+	 * 			child.parent = nul1
+	 * 		
+	 * 
+	 * 3. 删除叶子节点
+	 * 		直接删除
+	 * 		3.1 左节点
+	 * 		node == node.parent.left
+	 * 		node.parent.left = null
+	 * 		
+	 * 		3.2 右节点
+	 * 		node == node.parent.right
+	 * 		node.parent.right = null
+	 * 		
+	 * 		3.3 根节点
+	 * 		node.parent = null
+	 * 		root = null
+	 * 
+	 */
+	private void remove(Node<E> node) {
+		if (node == null) return;
+	
+		size--;
+		
+		// 1. 删除度为2的节点
+		if (node.isHasTwoChild()) {
+			// 前驱节点
+			Node<E> pre = predecessor(node);
+			// 用前驱节点的值覆盖要删除节点的值
+			node.element = pre.element;
+			// 
+			node = pre;
+		}
+		
+		// 2. 删除叶子节点
+		if (node.isLeaf()) {
+			if (node.parent == null) { // 根节点
+				root = null;
+			} else {
+				if (node == node.parent.left) { // 左节点
+					node.parent.left = null;
+				} else { // 右节点
+					node.parent.right = null;
+				}
+			}
+		} else { // 3. 删除度为1的节点
+			Node<E> child = node.left != null ? node.left : node.right;
+			if (node == root) {
+				root = child;
+				child.parent = null;
+			} else if (node == node.parent.left) { // 左节点 
+				child.parent = node.parent;
+				node.parent.left = child;
+			} else { // 右节点
+				child.parent = node.parent;
+				node.parent.right = child;
+			}
+		}
 	}
 	
 	/**

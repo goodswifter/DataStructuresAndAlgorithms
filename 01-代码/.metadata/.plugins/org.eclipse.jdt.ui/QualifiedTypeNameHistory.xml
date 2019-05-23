@@ -57,7 +57,7 @@
     <fullyQualifiedTypeName name="java.util.Queue"/>
     <fullyQualifiedTypeName name="java.util.LinkedList"/>
     <fullyQualifiedTypeName name="BinaryTree.TreeNode"/>
-    <fullyQualifiedTypeName name="E"/>
-    <fullyQualifiedTypeName name="com.ad.BinarySearchTree.Node"/>
     <fullyQualifiedTypeName name="java.lang.Process"/>
+    <fullyQualifiedTypeName name="com.ad.BinarySearchTree.Node"/>
+    <fullyQualifiedTypeName name="E"/>
 </qualifiedTypeNameHistroy>
