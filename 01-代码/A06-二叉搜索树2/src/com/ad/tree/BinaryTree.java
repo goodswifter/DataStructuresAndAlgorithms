@@ -1,26 +1,15 @@
-package com.ad;
+package com.ad.tree;
 
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Queue;
 
 import com.ad.printer.BinaryTreeInfo;
 
 @SuppressWarnings({"unchecked", "unused"})
-public class BinarySearchTree<E> implements BinaryTreeInfo {
-	private int size;
-	private Node<E> root;
+public class BinaryTree<E> implements BinaryTreeInfo {
+	protected int size;
+	protected Node<E> root;
 
-	private Comparator<E> comparator;
-	
-	public BinarySearchTree() {
-		this(null);
-	}
-
-	public BinarySearchTree(Comparator<E> comparator) {
-		this.comparator = comparator;
-	}
-	
 	public int size() {
 		return size;
 	}
@@ -34,151 +23,55 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 		size = 0;
 	}
 	
-	public void add(E element) {
-		elementNotNullCheck(element);
-		
-		// 添加第一个节点
-		if (root == null) {
-			root = new Node<>(element, null);
-			size++;
-			return;
-		}
-		
-		// 添加的不是第一个节点
-		// 找到父节点
-		Node<E> parent = root;
-		Node<E> node = root;
-		int cmp = 0;
-		while (node != null) {
-			cmp = compare(element, node.element);
-			
-			parent = node;
-			
-			if (cmp > 0) {
-				node = node.right;
-			} else if (cmp < 0) {
-				node = node.left;
-			} else { // 自定义对象时, 需要覆盖
-				node.element = element;
-				return;
-			}
-		}
-		
-		Node<E> newNode = new Node<>(element, parent);
-		if (cmp > 0) {
-			parent.right = newNode;
-		} else if (cmp < 0) {
-			parent.left = newNode;
-		}
-		
-		size++;
-	}
-	
-	public void remove(E element) {
-		remove(node(element));
-	}
-	
 	/**
-	 * 根据元素内容获取节点
+	 * 二叉树的高度 : 迭代方式
 	 */
-	private Node<E> node(E element) {
-		elementNotNullCheck(element);
+	public int height() {
+		if (root == null) return 0;
 		
-		Node<E> node = root;
-		while (node != null) {
-			int cmp = compare(element, node.element);
-			if (cmp == 0) return node;
-			if (cmp > 0) {
-				node = node.right;
-			} else {
-				node = node.left;
+		// 树的高度
+		int height = 0;
+		// 存储着每一层的元素个数
+		int levelSize = 1; // 默认第一层, 也就是root节点
+		
+		Queue<Node<E>> queue = new LinkedList<>();
+		queue.offer(root);
+		
+		while (!queue.isEmpty()) {
+			Node<E> node = queue.poll();
+			levelSize--;
+			
+			if (node.left != null) {
+				queue.offer(node.left);
+			}
+			
+			if (node.right != null) {
+				queue.offer(node.right);
+			}
+			
+			if (levelSize == 0) { // 意味着即将访问下一层
+				levelSize = queue.size();
+				height++;
 			}
 		}
-		return node;
+		
+		return height;
 	}
-	
 	/**
-	 * 分析:
-	 * 删除节点有三种情况:
-	 * 
-	 * 1. 删除 `度为2` 的节点
-	 * 		先用前驱或者后继节点的值覆盖原节点的值
-	 * 		然后删除相应的前驱或者后继节点
-	 * 		它的前驱或者后继节点的度只可能是 1 或者 0
-	 * 
-	 * 2. 删除 `度为1` 的节点
-	 * 		用子节点代替原节点的位置, 也就是用 child 替代 node 的位置
-	 * 		2.1 如果 child 是 node 的左子节点
-	 * 			child.parent = node.parent
-	 * 			node.parent.left = child
-	 * 
-	 * 		2.2 如果 child 是 node 的右子节点
-	 * 			child.parent = node.parent
-	 * 			node.parent.right = child
-	 * 
-	 * 		2.3 如果 node 是根节点
-	 * 			root = child
-	 * 			child.parent = nul1
-	 * 		
-	 * 
-	 * 3. 删除叶子节点
-	 * 		直接删除
-	 * 		3.1 左节点
-	 * 		node == node.parent.left
-	 * 		node.parent.left = null
-	 * 		
-	 * 		3.2 右节点
-	 * 		node == node.parent.right
-	 * 		node.parent.right = null
-	 * 		
-	 * 		3.3 根节点
-	 * 		node.parent = null
-	 * 		root = null
-	 * 
+	 * 二叉树的高度 : 递归方式
 	 */
-	private void remove(Node<E> node) {
-		if (node == null) return;
+	public int height2() {
+		return height(root);
+	}
 	
-		size--;
+	private int height(Node<E> node) {
+		if (node == null) return 0;
 		
-		// 1. 删除度为2的节点
-		if (node.isHasTwoChild()) {
-			// 前驱节点
-			Node<E> pre = predecessor(node);
-			// 用前驱节点的值覆盖要删除节点的值
-			node.element = pre.element;
-			// 删除前驱节点
-			node = pre;
-		}
-		
-		Node<E> replacement = node.left != null ? node.left : node.right;
-
-		// 2. 删除度为1的节点
-		if (replacement != null) {
-			// 更改 parent
-			replacement.parent = node.parent;
-			// 更改 parent 的 left、right 的指向
-			if (node.parent == null) { // node 是度为1的节点并且是根节点
-				root = replacement;
-				// replacement.parent = null; // 因为在更改parent的时候已经设置了
-			} else if (node == node.parent.left) { // 左节点
-				node.parent.left = replacement;
-			} else { // 右节点 : node == node.parent.right
-				node.parent.right = replacement;
-			}
-		} else if (node.parent == null) { // node是叶子节点并且是根节点
-			root = null;
-		} else { // node是叶子节点, 但不是根节点
-			if (node == node.parent.left) {
-				node.parent.left = replacement;
-			} else { // node == node.parent.right
-				node.parent.right = replacement;
-			}
-		}
+		return Math.max(height(node.left), height(node.right)) + 1;
 	}
 	
 	/**
-	 * 前驱节点:中序遍历时的前一-个节点
+	 * 前驱节点:中序遍历时的前一个节点
 	 * 如果是二叉搜索树，前驱节点就是前一个比它小的节点
 	 * 
 	 * 
@@ -196,7 +89,7 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 	 * 举例:没有左子树的根节点
 	 * 
 	 */
-	private Node<E> predecessor(Node<E> node) {
+	protected Node<E> predecessor(Node<E> node) {
 		if (root == null) return null;
 		
 		Node<E> p = null;
@@ -235,7 +128,7 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 	 * 那就没有前驱节点
 	 * 举例:没有右子树的根节点
 	 */
-	private Node<E> successor(Node<E> node) {
+	protected Node<E> successor(Node<E> node) {
 		if (node == null) return null;
 		
 		// 前驱节点在左子树当中（right.left.left.left....）
@@ -297,57 +190,7 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 	}
 	
 	/**
-	 * 二叉树的高度 : 迭代方式
-	 */
-	public int height() {
-		if (root == null) return 0;
-		
-		// 树的高度
-		int height = 0;
-		// 存储着每一层的元素个数
-		int levelSize = 1; // 默认第一层, 也就是root节点
-		
-		Queue<Node<E>> queue = new LinkedList<>();
-		queue.offer(root);
-		
-		while (!queue.isEmpty()) {
-			Node<E> node = queue.poll();
-			levelSize--;
-			
-			if (node.left != null) {
-				queue.offer(node.left);
-			}
-			
-			if (node.right != null) {
-				queue.offer(node.right);
-			}
-			
-			if (levelSize == 0) { // 意味着即将访问下一层
-				levelSize = queue.size();
-				height++;
-			}
-		}
-		
-		return height;
-	}
-	
-	/**
-	 * 二叉树的高度 : 递归方式
-	 */
-	public int height2() {
-		return height(root);
-	}
-	
-	private int height(Node<E> node) {
-		if (node == null) return 0;
-		
-		return Math.max(height(node.left), height(node.right)) + 1;
-	}
-	
-	/**
 	 * 外界提供方法, 如何打印这个元素
-	 *
-	 * @param <E>
 	 */
 	public static interface Visitor<E> {
 		void visit(E element);
@@ -446,23 +289,6 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 			}
 		});
 	}
-	
-	/**
-	 * @return 返回值等于0，代表e1和e2相等；返回值大于0，代表e1大于e2；返回值小于于0，代表e1小于e2
-	 */
-	private int compare(E e1, E e2) {
-		// 既可以给我传个比较器, 又可以不传
-		if (comparator != null) {
-			return comparator.compare(e1, e2);
-		}	
-		return ((Comparable<E>)e1).compareTo(e2);
-	}
-	
-	private void elementNotNullCheck(E element) {
-		if (element == null) {
-			throw new IllegalArgumentException("element must not be null");
-		}
-	}
 
 	@Override
 	public Object root() {
@@ -490,7 +316,25 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 		return n.element + "_p(" + parentString + ")";
 	}
 	
-	private static class Node<E> {
+	/**
+	 * 利用前序遍历树状打印二叉树
+	 */
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		toString(root, sb, "...");
+		return sb.toString();
+	}
+	
+	private void toString(Node<E> node, StringBuilder sb, String prefix) {
+		if (node == null) return;
+		
+		sb.append(prefix).append("【").append(node.element).append("】").append("\n");
+		toString(node.left, sb, prefix + "〖 L 〗");
+		toString(node.right, sb, prefix + "〖 R 〗");
+	}
+	
+	protected static class Node<E> {
 		E element;
 		Node<E> left;
 		Node<E> right;
@@ -510,23 +354,5 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 		public boolean isLeaf() {
 			return left == null && right == null;
 		}
-	}
-	
-	/**
-	 * 利用前序遍历树状打印二叉树
-	 */
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		toString(root, sb, "...");
-		return sb.toString();
-	}
-	
-	private void toString(Node<E> node, StringBuilder sb, String prefix) {
-		if (node == null) return;
-		
-		sb.append(prefix).append("【").append(node.element).append("】").append("\n");
-		toString(node.left, sb, prefix + "〖 L 〗");
-		toString(node.right, sb, prefix + "〖 R 〗");
 	}
 }

@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="com.ad.LinkedList"/>
-    <fullyQualifiedTypeName name="java.util.Iterator"/>
-    <fullyQualifiedTypeName name="com.sun.deploy.jcp.controller.DeleteFiles"/>
-    <fullyQualifiedTypeName name="LinkedList.ListNode"/>
     <fullyQualifiedTypeName name="com.ad.linkedlist.SingleLinkedList2.Node"/>
     <fullyQualifiedTypeName name="com.ad.linkedlist.LinkedList.Node"/>
     <fullyQualifiedTypeName name="com.ad.AssertUtil"/>
@@ -53,11 +49,15 @@
     <fullyQualifiedTypeName name="com.ad.BinarySearchTree.Visitor"/>
     <fullyQualifiedTypeName name="java.lang.StringBuilder"/>
     <fullyQualifiedTypeName name="java.lang.String"/>
-    <fullyQualifiedTypeName name="java.lang.Math"/>
     <fullyQualifiedTypeName name="java.util.Queue"/>
     <fullyQualifiedTypeName name="java.util.LinkedList"/>
     <fullyQualifiedTypeName name="BinaryTree.TreeNode"/>
     <fullyQualifiedTypeName name="java.lang.Process"/>
     <fullyQualifiedTypeName name="com.ad.BinarySearchTree.Node"/>
+    <fullyQualifiedTypeName name="com.ad.tree.BinaryTree"/>
+    <fullyQualifiedTypeName name="com.ad.tree.AVLTree"/>
+    <fullyQualifiedTypeName name="java.lang.Math"/>
+    <fullyQualifiedTypeName name="com.ad.tree.AVLTree.AVLNode"/>
     <fullyQualifiedTypeName name="E"/>
+    <fullyQualifiedTypeName name="com.ad.tree.BinaryTree.Node"/>
 </qualifiedTypeNameHistroy>
