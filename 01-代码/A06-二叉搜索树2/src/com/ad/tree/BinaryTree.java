@@ -5,7 +5,7 @@ import java.util.Queue;
 
 import com.ad.printer.BinaryTreeInfo;
 
-@SuppressWarnings({"unchecked", "unused"})
+@SuppressWarnings({"unchecked"})
 public class BinaryTree<E> implements BinaryTreeInfo {
 	protected int size;
 	protected Node<E> root;

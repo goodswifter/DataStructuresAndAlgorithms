@@ -5,7 +5,7 @@ import java.util.Queue;
 
 import com.ad.printer.BinaryTreeInfo;
 
-@SuppressWarnings({"unchecked", "unused"})
+@SuppressWarnings({"unchecked"})
 public class BinaryTree<E> implements BinaryTreeInfo {
 	protected int size;
 	protected Node<E> root;
@@ -68,6 +68,10 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 		if (node == null) return 0;
 		
 		return Math.max(height(node.left), height(node.right)) + 1;
+	}
+	
+	protected Node<E> createNode(E element, Node<E> parent) {
+		return new Node<>(element, parent);
 	}
 	
 	/**
@@ -307,13 +311,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 
 	@Override
 	public Object string(Object node) {
-		Node<E> n = (Node<E>)node;
-		String parentString = "null";
-		if (n.parent != null) {
-			parentString = n.parent.element.toString();
-		}
-		
-		return n.element + "_p(" + parentString + ")";
+		return node;
 	}
 	
 	/**
