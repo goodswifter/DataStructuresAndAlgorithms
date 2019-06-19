@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="com.ad.linkedlist.LinkedList.Node"/>
-    <fullyQualifiedTypeName name="com.ad.AssertUtil"/>
     <fullyQualifiedTypeName name="com.ad.arraylist.ArrayList2"/>
     <fullyQualifiedTypeName name="com.ad.linkedlist.LinkedList"/>
     <fullyQualifiedTypeName name="com.ad.circlelinkedlist.SingleCircleLinkedList"/>
@@ -38,7 +36,6 @@
     <fullyQualifiedTypeName name="java.lang.Comparable"/>
     <fullyQualifiedTypeName name="com.ad.Main.PersonComparator2"/>
     <fullyQualifiedTypeName name="com.ad.Main.PersonComparator1"/>
-    <fullyQualifiedTypeName name="java.util.Comparator"/>
     <fullyQualifiedTypeName name="com.ad.Person"/>
     <fullyQualifiedTypeName name="com.ad.file.FileTool"/>
     <fullyQualifiedTypeName name="com.ad.BinarySearchTree"/>
@@ -60,4 +57,7 @@
     <fullyQualifiedTypeName name="com.sun.org.apache.xml.internal.serializer.ElemDesc"/>
     <fullyQualifiedTypeName name="com.ad.tree.BinaryTree.Node"/>
     <fullyQualifiedTypeName name="com.ad.tree.AVLTree.AVLNode"/>
+    <fullyQualifiedTypeName name="com.ad.tree.BST"/>
+    <fullyQualifiedTypeName name="com.ad.tree.RBTree"/>
+    <fullyQualifiedTypeName name="java.util.Comparator"/>
 </qualifiedTypeNameHistroy>
