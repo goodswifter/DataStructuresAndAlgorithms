@@ -52,12 +52,12 @@
     <fullyQualifiedTypeName name="java.lang.Integer"/>
     <fullyQualifiedTypeName name="com.sun.org.apache.xml.internal.serializer.ElemDesc"/>
     <fullyQualifiedTypeName name="com.ad.tree.AVLTree.AVLNode"/>
-    <fullyQualifiedTypeName name="com.ad.tree.RBTree"/>
     <fullyQualifiedTypeName name="java.util.Comparator"/>
     <fullyQualifiedTypeName name="java.lang.String"/>
     <fullyQualifiedTypeName name="E"/>
     <fullyQualifiedTypeName name="com.ad.tree.RBTree.RBNode"/>
-    <fullyQualifiedTypeName name="com.ad.tree.BinaryTree.Node"/>
     <fullyQualifiedTypeName name="java.lang.reflect.UndeclaredThrowableException"/>
     <fullyQualifiedTypeName name="com.ad.tree.BST"/>
+    <fullyQualifiedTypeName name="com.ad.tree.RBTree"/>
+    <fullyQualifiedTypeName name="com.ad.tree.BinaryTree.Node"/>
 </qualifiedTypeNameHistroy>
