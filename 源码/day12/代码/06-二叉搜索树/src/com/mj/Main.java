@@ -10,6 +10,10 @@ import com.mj.printer.BinaryTrees;
 @SuppressWarnings("unused")
 public class Main {
 	
+	public static void main(String[] args) {
+		test8();
+	}
+	
 	private static class PersonComparator implements Comparator<Person> {
 		public int compare(Person e1, Person e2) {
 			return e1.getAge() - e2.getAge();
@@ -250,9 +254,5 @@ public class Main {
 			}
 		});
 		System.out.println();
-	}
-	
-	public static void main(String[] args) {
-		test9();
 	}
 }

@@ -170,18 +170,24 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 		Queue<Node<E>> queue = new LinkedList<>();
 		queue.offer(root);
 		
+		// 需不需要判断剩余的节点都是叶子节点
 		boolean leaf = false;
 		while (!queue.isEmpty()) {
 			Node<E> node = queue.poll();
 			
 			if (leaf && !node.isLeaf()) return false;
 			
-			if (node.isHasTwoChild()) {
+			if (node.left != null) {
 				queue.offer(node.left);
-				queue.offer(node.right);
-			} else if (node.left == null && node.right != null) 
+			} else if (node.right != null) { // node.left == null && node.right != null
 				return false;
-			else {
+			}
+			
+			if (node.right != null) {
+				queue.offer(node.right);
+			} else { // node.right == null
+				// node.left != null && node.right == null
+				// node.left == null && node.right == null
 				leaf = true;
 			}
 		}

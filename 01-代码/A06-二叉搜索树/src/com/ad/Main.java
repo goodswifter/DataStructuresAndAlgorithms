@@ -2,14 +2,61 @@ package com.ad;
 
 import java.util.Comparator;
 import com.ad.printer.BinaryTreeTool;
-import com.ad.BinarySearchTree.Visitor;
 import com.ad.file.FileTool;
 import com.ad.printer.BinaryTreeInfo;
+import com.ad.BinarySearchTree.Visitor;
 
 public class Main {
 
 	public static void main(String[] args) {
-		test5();
+		test6();
+	}
+
+	/**
+	 * 增强二叉树的遍历
+	 */
+	static void test6() {
+		Integer data[] = new Integer[] {
+				7, 4, 9, 2, 5, 8, 11, 3, 12, 1
+		};
+		
+		BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+		for (int i = 0; i < data.length; i++) {
+			bst.add(data[i]);
+		}
+		BinaryTreeTool.println(bst);
+		
+		bst.preorderTraversal(new Visitor<Integer>() {
+			boolean visit(Integer element) {
+				System.out.print(element + " ");
+				return element == 5;
+			}
+		});
+		System.out.println();
+		
+		bst.inorderTraversal(new Visitor<Integer>() {
+			boolean visit(Integer element) {
+				System.out.print(element + " ");
+				return element == 7;
+			}
+		});
+		System.out.println();
+		
+		bst.postorderTraversal(new Visitor<Integer>() {
+			boolean visit(Integer element) {
+				System.out.print(element + " ");
+				return element == 8;
+			}
+		});
+		System.out.println();
+		
+		bst.levelOrderTraversal(new Visitor<Integer>() {
+			boolean visit(Integer element) {
+				System.out.print(element + " ");
+				return element == 8;
+			}
+		});
+		System.out.println();
 	}
 	
 	public static void test5() {

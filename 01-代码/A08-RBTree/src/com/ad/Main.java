@@ -10,6 +10,9 @@ public class Main {
 		test1RBTree();
 	}
 	
+	/**
+	 * 红黑树
+	 */
 	public static void test1RBTree() {
 		
 		Integer[] datas = new Integer[] {
@@ -21,6 +24,11 @@ public class Main {
 			rbTree.add(datas[i]);
 		}
 		BinaryTreeTool.println(rbTree);
+		
+		for (int i = 0; i < datas.length; i++) {
+			System.out.println("----------" + datas[i] + "-----------");
+			rbTree.remove(datas[i]);
+			BinaryTreeTool.println(rbTree);
+		}
 	}
-
 }

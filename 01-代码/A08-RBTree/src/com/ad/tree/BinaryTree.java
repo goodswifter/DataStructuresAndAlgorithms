@@ -174,18 +174,24 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 		Queue<Node<E>> queue = new LinkedList<>();
 		queue.offer(root);
 		
+		// 需不需要判断剩余的节点都是叶子节点
 		boolean leaf = false;
 		while (!queue.isEmpty()) {
 			Node<E> node = queue.poll();
 			
 			if (leaf && !node.isLeaf()) return false;
 			
-			if (node.isHasTwoChild()) {
+			if (node.left != null) {
 				queue.offer(node.left);
-				queue.offer(node.right);
-			} else if (node.left == null && node.right != null) 
+			} else if (node.right != null) { // node.left == null && node.right != null
 				return false;
-			else {
+			}
+			
+			if (node.right != null) {
+				queue.offer(node.right);
+			} else { // node.right == null
+				// node.left != null && node.right == null
+				// node.left == null && node.right == null
 				leaf = true;
 			}
 		}
@@ -196,30 +202,35 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 	/**
 	 * 外界提供方法, 如何打印这个元素
 	 */
-	public static interface Visitor<E> {
-		void visit(E element);
+	public static abstract class Visitor<E> {
+		boolean stop;
+		/**
+		 * @return 如果返回true, 就代表停止遍历
+		 */
+		abstract boolean visit(E element);
 	}
 	
 	/**
 	 * 前序遍历
 	 */
 	public void preorderTraversal(Visitor<E> visitor) {
+		if (visitor == null) return;
 		preorderTraversal(root, visitor);
 	}
 	
 	public void preorderTraversal() {
 		preorderTraversal(root, new Visitor<>() {
-			@Override
-			public void visit(E element) {
+			boolean visit(E element) {
 				System.out.println(element);
+				return true;
 			}
 		});
 	}
 	
 	private void preorderTraversal(Node<E> node, Visitor<E> visitor) {
-		if (node == null) return;
+		if (node == null || visitor.stop) return;
 		
-		visitor.visit(node.element);
+		visitor.stop = visitor.visit(node.element);
 		preorderTraversal(node.left, visitor);
 		preorderTraversal(node.right, visitor);
 	}
@@ -228,31 +239,45 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 	 * 中序遍历
 	 */
 	public void inorderTraversal() {
-		inorderTraversal(root);
+		inorderTraversal(root, new Visitor<>() {
+			boolean visit(E element) {
+				System.out.println(element);
+				return true;
+			}
+		});
 	}
 	
 	// 中序遍历分升序和降序两种
-	private void inorderTraversal(Node<E> node) {
-		if (node == null) return;
+	private void inorderTraversal(Node<E> node, Visitor<E> visitor) {
+		// 这里面要判断 visitor.stop 是因为防止它继续向下走
+		if (node == null || visitor.stop) return;
 		
-		inorderTraversal(node.left);
-		System.out.println(node.element);
-		inorderTraversal(node.right);
+		inorderTraversal(node.left, visitor);
+		// 如果是停止, 直接结束
+		if (visitor.stop) return;
+		visitor.stop = visitor.visit(node.element);
+		inorderTraversal(node.right, visitor);
 	}
 	
 	/**
 	 * 后序遍历
 	 */
 	public void postorderTraversal() {
-		postorderTraversal(root);
+		postorderTraversal(root, new Visitor<>() {
+			boolean visit(E element) {
+				System.out.println(element);
+				return true;
+			}
+		});
 	}
 	
-	private void postorderTraversal(Node<E> node) {
-		if (node == null) return;
+	private void postorderTraversal(Node<E> node, Visitor<E> visitor) {
+		if (node == null || visitor.stop) return;
 		
-		postorderTraversal(node.left);
-		postorderTraversal(node.right);
-		System.out.println(node.element);
+		postorderTraversal(node.left, visitor);
+		postorderTraversal(node.right, visitor);
+		if (visitor.stop) return;
+		visitor.visit(node.element);
 	}
 	
 	/**
@@ -273,7 +298,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 		
 		while (!queue.isEmpty()) {
 			Node<E> node = queue.poll();
-			visitor.visit(node.element);;
+			if (visitor.visit(node.element)) return;
 			
 			if (node.left != null) {
 				queue.offer(node.left);
@@ -285,11 +310,11 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 		}
 	}
 	
-	@SuppressWarnings("rawtypes")
 	public void levelOrderTraversal() {
-		levelOrderTraversal(new Visitor() {
-			public void visit(Object element) {
+		levelOrderTraversal(new Visitor<>() {
+			boolean visit(E element) {
 				System.out.println(element);
+				return true;
 			}
 		});
 	}
