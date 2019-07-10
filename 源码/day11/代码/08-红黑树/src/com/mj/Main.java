@@ -83,7 +83,25 @@ public class Main {
 		BinaryTrees.println(rb);
 	}
 	
+	static void test4() {
+		Integer data[] = new Integer[] {
+				93, 18, 85, 91, 78, 60, 90, 81, 72, 12, 26, 86, 76, 73, 67, 69
+		};
+		
+		RBTree<Integer> rb = new RBTree<>();
+		for (int i = 0; i < data.length; i++) {
+			rb.add(data[i]);
+		}
+		BinaryTrees.println(rb);
+
+		for (int i = 0; i < data.length; i++) {
+			System.out.println("----------" + data[i] + "-----------");
+			rb.remove(data[i]);
+			BinaryTrees.println(rb);
+		}
+	}
+	
 	public static void main(String[] args) {
-		test3();
+		test4();
 	}
 }

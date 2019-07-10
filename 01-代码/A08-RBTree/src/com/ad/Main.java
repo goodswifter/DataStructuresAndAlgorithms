@@ -1,7 +1,6 @@
 package com.ad;
 
 import com.ad.printer.BinaryTreeTool;
-import com.ad.tree.AVLTree;
 import com.ad.tree.RBTree;
 
 public class Main {
@@ -26,8 +25,8 @@ public class Main {
 		BinaryTreeTool.println(rbTree);
 		
 		for (int i = 0; i < datas.length; i++) {
-			System.out.println("----------" + datas[i] + "-----------");
 			rbTree.remove(datas[i]);
+			System.out.println("----------" + datas[i] + "-----------");
 			BinaryTreeTool.println(rbTree);
 		}
 	}
