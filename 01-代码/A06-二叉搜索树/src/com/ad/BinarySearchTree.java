@@ -398,7 +398,7 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 	}
 	
 	public void preorderTraversal() {
-		preorderTraversal(root, new Visitor<>() {
+		preorderTraversal(root, new Visitor<E>() {
 			boolean visit(E element) {
 				System.out.println(element);
 				return true;
@@ -423,7 +423,7 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 	}
 	
 	public void inorderTraversal() {
-		inorderTraversal(root, new Visitor<>() {
+		inorderTraversal(root, new Visitor<E>() {
 			boolean visit(E element) {
 				System.out.println(element);
 				return true;
@@ -452,7 +452,7 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 	}
 	
 	public void postorderTraversal() {
-		postorderTraversal(root, new Visitor<>() {
+		postorderTraversal(root, new Visitor<E>() {
 			boolean visit(E element) {
 				System.out.println(element);
 				return true;
@@ -500,7 +500,7 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 	}
 	
 	public void levelOrderTraversal() {
-		levelOrderTraversal(new Visitor<>() {
+		levelOrderTraversal(new Visitor<E>() {
 			boolean visit(E element) {
 				System.out.println(element);
 				return true;

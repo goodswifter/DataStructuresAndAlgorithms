@@ -133,7 +133,7 @@ public class RBTree<E> extends BBST<E> {
 				
 				// 先染色最后旋转
 				color(sibling, colorOf(parent));
-				black(sibling.left);
+				black(sibling.right);
 				black(parent);
 				rotateLeft(parent);
 			}

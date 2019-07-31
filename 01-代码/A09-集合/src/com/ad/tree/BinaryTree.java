@@ -207,7 +207,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 		/**
 		 * @return 如果返回true, 就代表停止遍历
 		 */
-		abstract boolean visit(E element);
+		public abstract boolean visit(E element);
 	}
 	
 	/**
@@ -219,10 +219,10 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 	}
 	
 	public void preorderTraversal() {
-		preorderTraversal(root, new Visitor<>() {
-			boolean visit(E element) {
+		preorderTraversal(root, new Visitor<E>() {
+			public boolean visit(E element) {
 				System.out.println(element);
-				return true;
+				return false;
 			}
 		});
 	}
@@ -238,11 +238,16 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 	/**
 	 * 中序遍历
 	 */
+	public void inorderTraversal(Visitor<E> visitor) {
+		if (visitor == null) return;
+		inorderTraversal(root, visitor);
+	}
+	
 	public void inorderTraversal() {
-		inorderTraversal(root, new Visitor<>() {
-			boolean visit(E element) {
+		inorderTraversal(root, new Visitor<E>() {
+			public boolean visit(E element) {
 				System.out.println(element);
-				return true;
+				return false;
 			}
 		});
 	}
@@ -263,10 +268,10 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 	 * 后序遍历
 	 */
 	public void postorderTraversal() {
-		postorderTraversal(root, new Visitor<>() {
-			boolean visit(E element) {
+		postorderTraversal(root, new Visitor<E>() {
+			public boolean visit(E element) {
 				System.out.println(element);
-				return true;
+				return false;
 			}
 		});
 	}
@@ -311,10 +316,10 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 	}
 	
 	public void levelOrderTraversal() {
-		levelOrderTraversal(new Visitor<>() {
-			boolean visit(E element) {
+		levelOrderTraversal(new Visitor<E>() {
+			public boolean visit(E element) {
 				System.out.println(element);
-				return true;
+				return false;
 			}
 		});
 	}

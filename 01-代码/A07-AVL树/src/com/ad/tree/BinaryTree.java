@@ -214,7 +214,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 	}
 	
 	public void preorderTraversal() {
-		preorderTraversal(root, new Visitor<>() {
+		preorderTraversal(root, new Visitor<E>() {
 			@Override
 			public void visit(E element) {
 				System.out.println(element);

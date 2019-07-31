@@ -84,6 +84,10 @@ public class BST<E> extends BinaryTree<E> {
 		remove(node(element));
 	}
 	
+	public boolean contains(E element) {
+		return node(element) != null;
+	}
+	
 	/**
 	 * 根据元素内容获取节点
 	 */

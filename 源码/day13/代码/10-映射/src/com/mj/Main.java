@@ -66,7 +66,7 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		test3();
+		test1();
 	}
 
 }

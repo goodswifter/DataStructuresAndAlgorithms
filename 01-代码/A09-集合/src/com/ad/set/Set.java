@@ -11,6 +11,9 @@ public interface Set<E> {
 	
 	public static abstract class Visitor<E> {
 		boolean stop;
+		/*
+		 * 返回值代表是否停止遍历
+		 */
 		public abstract boolean visit(E element);
 	}
 }

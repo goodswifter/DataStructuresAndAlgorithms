@@ -2,6 +2,7 @@ package com.mj;
 
 import com.mj.Times.Task;
 import com.mj.file.FileInfo;
+import com.mj.file.FileTool;
 import com.mj.file.Files;
 import com.mj.set.ListSet;
 import com.mj.set.Set;
@@ -51,7 +52,7 @@ public class Main {
 	}
 	
 	static void test2() {
-		FileInfo fileInfo = Files.read("C:\\Users\\MJ Lee\\Desktop\\src\\java\\util", 
+		FileInfo fileInfo = Files.read("/Users/jingshi/Documents/zhong/DSAL", 
 				new String[]{"java"});
 		
 		System.out.println("文件数量：" + fileInfo.getFiles());
