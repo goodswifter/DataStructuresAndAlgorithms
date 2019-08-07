@@ -29,7 +29,7 @@ public class Main {
 		}
 		
 		map.traversal(new Visitor<String, Integer>() {
-			public boolean visit(String key, Integer value) {
+			public boolean visit (String key, Integer value) {
 				System.out.println(key + "_" + value);
 				return false;
 			}

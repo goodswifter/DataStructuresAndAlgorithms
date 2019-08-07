@@ -360,8 +360,9 @@ public class TreeMap<K, V> implements Map<K, V> {
 			rotateLeft(grand);
 		}
 	}
-	protected Node<K, V> predecessor(Node<K, V> node) {
-		if (root == null) return null;
+	
+	private Node<K, V> predecessor(Node<K, V> node) {
+		if (node == null) return null;
 		
 		Node<K, V> p = null;
 		if (node.left != null) {
@@ -381,7 +382,7 @@ public class TreeMap<K, V> implements Map<K, V> {
 		return node.parent;
 	}
 	
-	protected Node<K, V> successor(Node<K, V> node) {
+	private Node<K, V> successor(Node<K, V> node) {
 		if (node == null) return null;
 		
 		// 前驱节点在左子树当中（right.left.left.left....）

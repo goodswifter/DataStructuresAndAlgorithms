@@ -76,10 +76,10 @@ public class Main {
 //			}
 //		});
 
-//		System.out.println(map.get("jack"));
-//		System.out.println(map.get("rose"));
-//		System.out.println(map.get(null));
-//		System.out.println(map.get(p1));
+		System.out.println(map.get("jack"));
+		System.out.println(map.get("rose"));
+		System.out.println(map.get(null));
+		System.out.println(map.get(p1));
 	}
 	
 	static void test5() {

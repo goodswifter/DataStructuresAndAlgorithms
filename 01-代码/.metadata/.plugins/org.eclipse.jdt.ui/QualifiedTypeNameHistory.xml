@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.sun.tools.javac.util.StringUtils"/>
-<fullyQualifiedTypeName name="java.awt.List"/>
-<fullyQualifiedTypeName name="javax.swing.undo.StateEdit"/>
-<fullyQualifiedTypeName name="java.util.Stack"/>
-<fullyQualifiedTypeName name="java.lang.Object"/>
-<fullyQualifiedTypeName name="com.ad.circle.CircleQueue"/>
-<fullyQualifiedTypeName name="com.ad.circle.CircleDeque"/>
-<fullyQualifiedTypeName name="java.util.Deque"/>
-<fullyQualifiedTypeName name="com.ad.printer.BinaryTreeInfo"/>
-<fullyQualifiedTypeName name="java.lang.Comparable"/>
 <fullyQualifiedTypeName name="com.ad.Main.PersonComparator2"/>
 <fullyQualifiedTypeName name="com.ad.Main.PersonComparator1"/>
 <fullyQualifiedTypeName name="com.ad.Person"/>
@@ -31,7 +21,6 @@
 <fullyQualifiedTypeName name="com.ad.BinarySearchTree.Visitor"/>
 <fullyQualifiedTypeName name="com.ad.tree.BinaryTree.Node"/>
 <fullyQualifiedTypeName name="com.apple.laf.AquaImageFactory.SlicedImageControl"/>
-<fullyQualifiedTypeName name="com.ad.printer.BinaryTreeTool"/>
 <fullyQualifiedTypeName name="com.ad.list.LinkedList"/>
 <fullyQualifiedTypeName name="com.ad.list.List"/>
 <fullyQualifiedTypeName name="com.ad.set.Set.Visitor"/>
@@ -45,19 +34,30 @@
 <fullyQualifiedTypeName name="java.lang.Enum"/>
 <fullyQualifiedTypeName name="com.ad.TimeTool"/>
 <fullyQualifiedTypeName name="com.ad.set.Set"/>
-<fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="com.ad.TimeTool.Task"/>
 <fullyQualifiedTypeName name="com.ad.set.ListSet"/>
 <fullyQualifiedTypeName name="java.lang.VerifyError"/>
 <fullyQualifiedTypeName name="com.sun.corba.se.impl.orbutil.graph.Node"/>
 <fullyQualifiedTypeName name="java.util.Comparator"/>
-<fullyQualifiedTypeName name="K"/>
 <fullyQualifiedTypeName name="com.sun.org.apache.regexp.internal.recompile"/>
 <fullyQualifiedTypeName name="java.lang.NullPointerException"/>
+<fullyQualifiedTypeName name="com.ad.map.TreeMap.Node"/>
+<fullyQualifiedTypeName name="com.ad.file.FileTool"/>
 <fullyQualifiedTypeName name="V"/>
+<fullyQualifiedTypeName name="com.sun.java.util.jar.pack.ConstantPool.Index"/>
+<fullyQualifiedTypeName name="K"/>
+<fullyQualifiedTypeName name="java.lang.Object"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="java.lang.Comparable"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="java.util.Objects"/>
 <fullyQualifiedTypeName name="java.util.Queue"/>
 <fullyQualifiedTypeName name="java.util.LinkedList"/>
-<fullyQualifiedTypeName name="com.ad.map.TreeMap.Node"/>
+<fullyQualifiedTypeName name="com.ad.map.HashMap"/>
+<fullyQualifiedTypeName name="com.ad.map.Map"/>
 <fullyQualifiedTypeName name="com.ad.map.Map.Visitor"/>
-<fullyQualifiedTypeName name="com.ad.file.FileTool"/>
+<fullyQualifiedTypeName name="com.ad.map.HashMap.Node"/>
+<fullyQualifiedTypeName name="com.ad.printer.BinaryTreeTool"/>
+<fullyQualifiedTypeName name="com.ad.printer.BinaryTreeInfo"/>
+<fullyQualifiedTypeName name="sun.security.krb5.internal.crypto.KeyUsage"/>
 </qualifiedTypeNameHistroy>
