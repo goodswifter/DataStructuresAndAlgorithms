@@ -59,12 +59,43 @@ public class HashMap<K, V> implements Map<K, V> {
 		// 找到父节点
 		Node<K, V> parent = root;
 		Node<K, V> node = root;
+		K k1 = key;
 		int h1 = key == null ? 0 : key.hashCode();
 		int cmp = 0;
+		Node<K, V> result = null;
+		boolean searched = false; // 是否已经搜索过这个Key
 		do {
-			cmp = compare(key, node.key, h1, node.hash);
-			
 			parent = node;
+			
+			K k2 = node.key;
+			int h2 = node.hash;
+			
+			if (h1 > h2) {
+				cmp = 1;
+			} else if (h1 < h2) {
+				cmp = -1;
+			} else if (Objects.equals(k1, k2)) {
+				cmp = 0;
+			} else if (k1 != null && k2 != null
+					&& k1.getClass() == k2.getClass()
+					&& k1 instanceof Comparable
+					&& (cmp = ((Comparable)k1).compareTo(k2)) != 0) {
+				
+			} else if (searched) { // 已经扫描过了
+				cmp = System.identityHashCode(k1) - System.identityHashCode(k2);
+			} else { // searched == false; 还没有扫描，然后再根据内存地址大小决定左右
+				if ((node.left != null && (result = node(node.left, k1)) != null)
+						|| (node.right != null && (result = node(node.right, k1)) != null)) {
+					// 已经找到这个Key
+					node = result;
+					cmp = 0;
+				} else { // 不存在这个Key
+					searched = true;
+					cmp = System.identityHashCode(k1) - System.identityHashCode(k2);
+				}
+			}
+			
+			
 			
 			if (cmp > 0) {
 				node = node.right;
@@ -165,7 +196,7 @@ public class HashMap<K, V> implements Map<K, V> {
 		for (int i = 0; i < table.length; i++) {
 			// 匿名对象内不能有变量,只能用常量
 			Node<K, V> root = table[i];
-			System.out.println("【index = " + i + "】");
+//			System.out.println("【index = " + i + "】");
 			BinaryTreeTool.println(new BinaryTreeInfo() {
 				
 				@Override
@@ -188,7 +219,7 @@ public class HashMap<K, V> implements Map<K, V> {
 					return ((Node<K, V>)node).left;
 				}
 			});
-			System.out.println("-------------------------");
+//			System.out.println("-------------------------");
 		}
 	}
 	
@@ -426,20 +457,63 @@ public class HashMap<K, V> implements Map<K, V> {
 		}
 	}
 	
+	/**
+	 * 通过 key 获取 节点
+	 * 
+	 * @param key
+	 * @return
+	 */
 	private Node<K, V> node(K key) {
-		Node<K, V> node = table[index(key)];
-		int h1 = key == null ? 0 : key.hashCode();
+		Node<K, V> root = table[index(key)];
+		return root == null ? null : node(root, key);
+	}
+
+	private Node<K, V> node(Node<K, V> node, K k1) {
+		// k1的哈希值
+		int h1 = k1 == null ? 0 : k1.hashCode();
+		
+		// 存储查询结果
+		Node<K, V> result = null;
+		int cmp = 0;
 		while (node != null) {
-			int cmp = compare(key, node.key, h1, node.hash);
-			if (cmp == 0) return node;
-			if (cmp > 0) {
+			K k2 = node.key;
+			int h2 = node.hash;
+			// 1. 比较哈希值
+			if (h1 > h2) {
 				node = node.right;
-			} else { // cmp < 0
+			} else if (h1 < h2) {
 				node = node.left;
- 			}
+			} else if (Objects.equals(k1, k2)) { // 对象相等, hash值一定相等
+				return node;
+			} else if (k1 != null && k2 != null
+					&& k1.getClass() == k2.getClass()
+					&& k1 instanceof Comparable
+					&& (cmp = ((Comparable)k1).compareTo(k2)) != 0) {
+				node = cmp > 0 ? node.right : node.left;
+			} else if (node.right != null && (result = node(node.right, k1)) != null) {
+				return result;
+			} else {
+				node = node.left;
+			}
 		}
+		
 		return null;
 	}
+	
+//	private Node<K, V> node(K key) {
+//		Node<K, V> node = table[index(key)];
+//		int h1 = key == null ? 0 : key.hashCode();
+//		while (node != null) {
+//			int cmp = compare(key, node.key, h1, node.hash);
+//			if (cmp == 0) return node;
+//			if (cmp > 0) {
+//				node = node.right;
+//			} else { // cmp < 0
+//				node = node.left;
+// 			}
+//		}
+//		return null;
+//	}
 
 	private Node<K, V> color(Node<K, V> node, boolean color) {
 		if (node == null) return node;
@@ -467,34 +541,34 @@ public class HashMap<K, V> implements Map<K, V> {
 		return colorOf(node) == RED;
 	}
 	
-	private int compare(K k1, K k2, int h1, int h2) {
-		// 1. 比较哈希值
-		int result = h1 - h2;
-		if (result != 0) return result;
-		
-		// 2. 比较equals
-		if (Objects.equals(k1, k2)) return 0;
-		
-		// 3. 哈希值相等, 但equals不相等
-		if (k1 != null && k2 != null) {
-			// 比较类名
-			String k1Cls = k1.getClass().getName();
-			String k2Cls = k2.getClass().getName();
-			result = k1Cls.compareTo(k2Cls);
-			if (result != 0) return result;
-			
-			// 同一种类型并且具备可比性
-			if (k1 instanceof Comparable) {
-				return ((Comparable) k1).compareTo(k2);
-			}
-		}
-		
-		// 4. 同一种类型, 哈希值相等, 但是 equals 不为 true, 并且不具备可比较性
-		// k1 不为 null, k2 为 null
-		// k2 不为 null, k1 为 null
-		// 通过 key 地址的哈希值比较
-		return System.identityHashCode(k1) - System.identityHashCode(k2);
-	}
+//	private int compare(K k1, K k2, int h1, int h2) {
+//		// 1. 比较哈希值
+//		int result = h1 - h2;
+//		if (result != 0) return result;
+//		
+//		// 2. 比较equals
+//		if (Objects.equals(k1, k2)) return 0;
+//		
+//		// 3. 哈希值相等, 但equals不相等
+//		if (k1 != null && k2 != null) {
+//			// 比较类名
+//			String k1Cls = k1.getClass().getName();
+//			String k2Cls = k2.getClass().getName();
+//			result = k1Cls.compareTo(k2Cls);
+//			if (result != 0) return result;
+//			
+//			// 同一种类型并且具备可比性
+//			if (k1 instanceof Comparable) {
+//				return ((Comparable) k1).compareTo(k2);
+//			}
+//		}
+//		
+//		// 4. 同一种类型, 哈希值相等, 但是 equals 不为 true, 并且不具备可比较性
+//		// k1 不为 null, k2 为 null
+//		// k2 不为 null, k1 为 null
+//		// 通过 key 地址的哈希值比较
+//		return System.identityHashCode(k1) - System.identityHashCode(k2);
+//	}
 	
 	private void rotateLeft(Node<K, V> grand) {
 		// 需要调整的父节点

@@ -23,17 +23,17 @@ public class Main {
 		String[] words = fileInfo.words();
 		System.out.println("单词数量：" + words.length);
 		
-		TimeTool.test("ListSet", new Task() {
-			public void execute() {
-				testSet(new ListSet<>(), words);
-			}
-		});
-		
-		TimeTool.test("TreeSet", new Task() {
-			public void execute() {
-				testSet(new TreeSet<>(), words);
-			}
-		});
+//		TimeTool.test("ListSet", new Task() {
+//			public void execute() {
+//				testSet(new ListSet<>(), words);
+//			}
+//		});
+//		
+//		TimeTool.test("TreeSet", new Task() {
+//			public void execute() {
+//				testSet(new TreeSet<>(), words);
+//			}
+//		});
 	}
 	
 	static void testSet(Set<String> set, String[] words) {
