@@ -1,10 +1,11 @@
 package com.ad.set;
 
+import com.ad.map.HashMap;
+import com.ad.map.LinkedHashMap;
 import com.ad.map.Map;
-import com.ad.map.TreeMap;
 
-public class TreeSet<E> implements Set<E> {
-	Map<E, Object> map = new TreeMap<>();
+public class LinkedHashSet<E> implements Set<E> {
+	HashMap<E, Object> map = new LinkedHashMap<>();
 
 	@Override
 	public int size() {
@@ -45,5 +46,4 @@ public class TreeSet<E> implements Set<E> {
 		});
 		
 	}
-	
 }
