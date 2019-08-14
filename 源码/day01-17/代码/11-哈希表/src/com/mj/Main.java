@@ -36,8 +36,8 @@ public class Main {
 	}
 	
 	static void test1() {
-		String filepath = "C:\\Users\\MJ Lee\\Desktop\\src\\java\\util";
-		FileInfo fileInfo = Files.read(filepath, null);
+		String filepath = "/Users/jingshi/Documents/zhong";
+		FileInfo fileInfo = Files.read(filepath, new String[]{"class", "java"});
 		String[] words = fileInfo.words();
 
 		System.out.println("总行数：" + fileInfo.getLines());

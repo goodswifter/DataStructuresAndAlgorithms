@@ -11,10 +11,10 @@ import com.mj.printer.BinaryTrees;
 public class HashMap<K, V> implements Map<K, V> {
 	private static final boolean RED = false;
 	private static final boolean BLACK = true;
-	private int size;
-	private Node<K, V>[] table;
+	protected int size;
+	protected Node<K, V>[] table;
 	private static final int DEFAULT_CAPACITY = 1 << 4;
-	private static final float DEFAULT_LOAD_FACTOR = 0.75f;
+	protected static final float DEFAULT_LOAD_FACTOR = 0.75f;
 	
 	public HashMap() {
 		table = new Node[DEFAULT_CAPACITY];
@@ -215,7 +215,7 @@ public class HashMap<K, V> implements Map<K, V> {
 	
 	protected void afterRemove(Node<K, V> willNode, Node<K, V> removedNode) { }
 	
-	private void resize() {
+	protected void resize() {
 		// 装填因子 <= 0.75
 		if (size / table.length <= DEFAULT_LOAD_FACTOR) return;
 		

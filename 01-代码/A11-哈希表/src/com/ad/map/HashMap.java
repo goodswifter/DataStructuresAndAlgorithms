@@ -12,9 +12,11 @@ public class HashMap<K, V> implements Map<K, V> {
 	private static final boolean RED = false;
 	private static final boolean BLACK = true;
 
-	private int size;
-	private Node<K, V>[] table;
-	private static final int DEFAULT_CAPACITY = 1 << 4;
+	protected int size;
+	protected Node<K, V>[] table;
+	protected static final int DEFAULT_CAPACITY = 1 << 4;
+	// 装载/负载因子
+	protected static final float DEFAULT_LOAD_FACTOR = 0.75f;
 	
 	public HashMap() {
 		table = new Node[DEFAULT_CAPACITY];
@@ -41,16 +43,19 @@ public class HashMap<K, V> implements Map<K, V> {
 
 	@Override
 	public V put(K key, V value) {
+		// 是否需要扩容
+		resize();
+		
 		// 获取 key 的索引
 		int index = index(key);
 		// 取出 index 位置的红黑树根节点
 		Node<K, V> root = table[index];
 		// 1. 新增节点, 也就是根节点
 		if (root == null) {
-			root = new Node<>(key, value, null);
+			root = createNode(key, value, null);
 			table[index] = root;
 			size++;
-			afterPut(root);
+			fixAfterPut(root);
 			return null;
 		}
 		
@@ -95,8 +100,6 @@ public class HashMap<K, V> implements Map<K, V> {
 				}
 			}
 			
-			
-			
 			if (cmp > 0) {
 				node = node.right;
 			} else if (cmp < 0) {
@@ -109,7 +112,7 @@ public class HashMap<K, V> implements Map<K, V> {
 			} 
 		} while (node != null);
 		
-		Node<K, V> newNode = new Node<>(key, value, parent);
+		Node<K, V> newNode = createNode(key, value, parent);
 		if (cmp > 0) {
 			parent.right = newNode;
 		} else if (cmp < 0) {
@@ -119,9 +122,110 @@ public class HashMap<K, V> implements Map<K, V> {
 		size++;
 		
 		// 添加新节点之后的处理
-		afterPut(newNode);
+		fixAfterPut(newNode);
 		
 		return null;
+	}
+
+	/**
+	 * 检查是否需要扩容
+	 */
+	protected void resize() {
+		// 装填因子 <= 0.75
+		if (size / table.length <= DEFAULT_LOAD_FACTOR) return;
+		
+		Node<K, V>[] oldTable = table;
+		table = new Node[oldTable.length << 1];
+		
+		Queue<Node<K, V>> queue = new LinkedList<>();
+		for (int i = 0; i < oldTable.length; i++) {
+			if (oldTable[i] == null) continue;
+			
+			queue.offer(oldTable[i]);
+			while (!queue.isEmpty()) {
+				Node<K, V> node = queue.poll();
+				
+				if (node.left != null) {
+					queue.offer(node.left);
+				}
+				
+				if (node.right != null) {
+					queue.offer(node.right);
+				}
+				
+				// 挪动代码放到最后面
+				moveNode(node);
+			}
+		}
+	}
+
+	/**
+	 * 将节点挪动到新的表中
+	 * @param node
+	 */
+	protected void moveNode(Node<K, V> newNode) {
+		// 1. 重置节点之前的所有的逻辑
+		newNode.parent = null;
+		newNode.left = null;
+		newNode.right = null;
+		newNode.color = RED;
+		
+		// 获取 key 的索引
+		int index = index(newNode);
+		// 取出 index 位置的红黑树根节点
+		Node<K, V> root = table[index];
+		// 1. 新增节点, 也就是根节点
+		if (root == null) {
+			root = newNode;
+			table[index] = root;
+			
+			fixAfterPut(root);
+			return;
+		}
+		
+		// 添加新的节点到红黑树上面
+		// 添加的不是第一个节点
+		// 找到父节点
+		Node<K, V> parent = root;
+		Node<K, V> node = root;
+		K k1 = newNode.key;
+		int h1 = newNode.hash;
+		int cmp = 0;
+		do {
+			parent = node;
+			
+			K k2 = node.key;
+			int h2 = node.hash;
+			
+			if (h1 > h2) {
+				cmp = 1;
+			} else if (h1 < h2) {
+				cmp = -1;
+			} else if (k1 != null && k2 != null
+					&& k1.getClass() == k2.getClass()
+					&& k1 instanceof Comparable
+					&& (cmp = ((Comparable)k1).compareTo(k2)) != 0) {
+				
+			} else { // 已经扫描过了
+				cmp = System.identityHashCode(k1) - System.identityHashCode(k2);
+			}
+			
+			if (cmp > 0) {
+				node = node.right;
+			} else if (cmp < 0) {
+				node = node.left;
+			}
+		} while (node != null);
+		
+		newNode.parent = parent;
+		if (cmp > 0) {
+			parent.right = newNode;
+		} else if (cmp < 0) {
+			parent.left = newNode;
+		}
+		
+		// 添加新节点之后的处理
+		fixAfterPut(newNode);
 	}
 
 	@Override
@@ -223,10 +327,18 @@ public class HashMap<K, V> implements Map<K, V> {
 		}
 	}
 	
+	protected Node<K, V> createNode(K key, V value, Node<K, V> parent) {
+		return new Node<>(key, value, parent);
+	}
+	
+	protected void afterRemove(Node<K, V> willNode, Node<K, V> removedNode) { }
+	
 	private V remove(Node<K, V> node) {
 		if (node == null) return null;
 	
 		size--;
+		
+		Node<K, V> willNode = node;
 		
 		V oldValue = node.value;
 		
@@ -237,6 +349,7 @@ public class HashMap<K, V> implements Map<K, V> {
 			// 用前驱节点的值覆盖要删除节点的值
 			node.key = pre.key;
 			node.value = pre.value;
+			node.hash = pre.hash;
 			// 删除前驱节点
 			node = pre;
 		}
@@ -260,7 +373,7 @@ public class HashMap<K, V> implements Map<K, V> {
 			}
 			
 			// 删除节点之后的处理
-			afterRemove(replacement);
+			fixfterRemove(replacement);
 		} else if (node.parent == null) { // node是叶子节点并且是根节点
 			table[index] = null;
 			
@@ -275,13 +388,16 @@ public class HashMap<K, V> implements Map<K, V> {
 			}
 			
 			// 删除节点之后的处理
-			afterRemove(node);
+			fixfterRemove(node);
 		}
+		
+		// 交给子类去处理
+		afterRemove(willNode, node);
 		
 		return oldValue;
 	}
 	
-	private void afterRemove(Node<K, V> node) {
+	private void fixfterRemove(Node<K, V> node) {
 		// 1. 如果删除的是红色节点, 直接删除, 不作任何处理
 		// 这个可以向下合并
 //		if (isRed(node)) return;
@@ -326,7 +442,7 @@ public class HashMap<K, V> implements Map<K, V> {
 				black(parent);
 				red(sibling);
 				if (parentBlack) {
-					afterRemove(parent);
+					fixfterRemove(parent);
 				}
 			} else { // 兄弟节点至少有一个红色节点, 向兄弟节点借元素
 				// 兄弟节点的右边是黑色, 兄弟要先旋转
@@ -337,7 +453,7 @@ public class HashMap<K, V> implements Map<K, V> {
 				
 				// 先染色最后旋转
 				color(sibling, colorOf(parent));
-				black(sibling.left);
+				black(sibling.right);
 				black(parent);
 				rotateLeft(parent);
 			}
@@ -360,7 +476,7 @@ public class HashMap<K, V> implements Map<K, V> {
 				black(parent);
 				red(sibling);
 				if (parentBlack) {
-					afterRemove(parent);
+					fixfterRemove(parent);
 				}
 			} else { // 兄弟节点至少有一个红色节点, 向兄弟节点借元素
 				// 兄弟节点的左边是黑色, 兄弟要先旋转
@@ -399,7 +515,7 @@ public class HashMap<K, V> implements Map<K, V> {
 		return node.parent;
 	}
 	
-	private void afterPut(Node<K, V> node) {
+	private void fixAfterPut(Node<K, V> node) {
 		// 父节点
 		Node<K, V> parent = node.parent;
 		
@@ -427,7 +543,7 @@ public class HashMap<K, V> implements Map<K, V> {
 			black(uncle);
 			// 把祖父节点当做新添加的节点
 //					afterAdd(red(grand));
-			afterPut(grand);
+			fixAfterPut(grand);
 			return;
 		}
 		
@@ -627,7 +743,7 @@ public class HashMap<K, V> implements Map<K, V> {
 		return (node.hash ^ (node.hash >>> 16)) & (table.length - 1);
 	}
 	
-	private static class Node<K, V> {
+	protected static class Node<K, V> {
 		K key;
 		V value;
 		int hash;

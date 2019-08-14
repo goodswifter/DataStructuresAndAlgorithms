@@ -194,9 +194,9 @@ public class TreeMap<K, V> implements Map<K, V> {
 //			afterRemove(node);
 		} else { // node是叶子节点, 但不是根节点
 			if (node == node.parent.left) {
-				node.parent.left = replacement;
+				node.parent.left = null;
 			} else { // node == node.parent.right
-				node.parent.right = replacement;
+				node.parent.right = null;
 			}
 			
 			// 删除节点之后的处理
@@ -262,7 +262,7 @@ public class TreeMap<K, V> implements Map<K, V> {
 				
 				// 先染色最后旋转
 				color(sibling, colorOf(parent));
-				black(sibling.left);
+				black(sibling.right);
 				black(parent);
 				rotateLeft(parent);
 			}

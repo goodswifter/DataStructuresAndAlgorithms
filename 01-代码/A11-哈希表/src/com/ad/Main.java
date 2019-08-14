@@ -3,6 +3,10 @@ package com.ad;
 import com.ad.file.FileInfo;
 import com.ad.file.FileTool;
 import com.ad.map.HashMap;
+import com.ad.map.LinkedHashMap;
+import com.ad.map.Map;
+import com.ad.map.Map.Visitor;
+import com.ad.map.TreeMap;
 import com.ad.model.Key;
 import com.ad.model.SubKey1;
 import com.ad.model.SubKey2;
@@ -18,7 +22,34 @@ public class Main {
 //		test3(new HashMap<>());
 //		test4(new HashMap<>());
 //		test5(new HashMap<>());
+//		test6(new LinkedHashMap<Object, Integer>());
 		System.out.println("---");
+	}
+	
+	static void test6(HashMap<Object, Integer> map) {
+		map.put("jack", 1);
+		map.put("rose", 2);
+		map.put("jim", 3);
+		map.put("jake", 4);	
+		map.remove("jim");
+		for (int i = 1; i <= 10; i++) {
+			map.put("test" + i, i);
+			map.put(new Key(i), i);
+		}
+		for (int i = 5; i <= 7; i++) {
+			AssertUtil.test(map.remove(new Key(i)) == i);
+		}
+		for (int i = 1; i <= 3; i++) {
+			map.put(new Key(i), i + 5);
+		}
+		map.traversal(new Visitor<Object, Integer>() {
+			
+			@Override
+			public boolean visit(Object key, Integer value) {
+				System.out.println(key + "_" + value);
+				return false;
+			}
+		});
 	}
 	
 	static void test1() {
@@ -31,16 +62,12 @@ public class Main {
 		System.out.println("单词总数：" + words.length);
 		System.out.println("-------------------------------------");
 		
-//		java.util.HashMap<String, Integer> map = new java.util.HashMap<>();
-//		
-//		for (String word : words) {
-//			Integer count = map.get(word);
-//			count = count == null ? 0 : count;
-//			map.put(word, count + 1);
-//		}
-//		System.out.println(map.size()); // 963
-		
-		HashMap<String, Integer> map = new HashMap<>();
+		test1Map(new HashMap<String, Integer>(), words);
+		test1Map(new TreeMap<String, Integer>(), words);
+		test1Map(new LinkedHashMap<String, Integer>(), words);
+	}
+	
+	static void test1Map(Map<String, Integer> map, String[] words) {
 		TimeUtil.test(map.getClass().getName(), new Task() {
 			@Override
 			public void execute() {
@@ -49,16 +76,16 @@ public class Main {
 					count = count == null ? 0 : count;
 					map.put(word, count + 1);
 				}
-				System.out.println(map.size()); // 963
+				System.out.println(map.size()); // 17188
 				
-//				int count = 0;
-//				for (String word : words) {
-//					Integer i = map.get(word);
-//					count += i == null ? 0 : i;
-//					map.remove(word);
-//				}
-//				AssertUtil.test(count == words.length);
-//				AssertUtil.test(map.size() == 0);
+				int count = 0;
+				for (String word : words) {
+					Integer i = map.get(word);
+					count += i == null ? 0 : i;
+					map.remove(word);
+				}
+				AssertUtil.test(count == words.length);
+				AssertUtil.test(map.size() == 0);
 			}
 		});
 	}
