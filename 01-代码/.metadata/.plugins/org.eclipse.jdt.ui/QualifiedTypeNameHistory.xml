@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.ad.tree.BST"/>
-<fullyQualifiedTypeName name="com.sun.tools.javac.resources.compiler"/>
-<fullyQualifiedTypeName name="com.ad.BinarySearchTree"/>
-<fullyQualifiedTypeName name="com.ad.BinarySearchTree.Visitor"/>
-<fullyQualifiedTypeName name="com.ad.tree.BinaryTree.Node"/>
-<fullyQualifiedTypeName name="com.apple.laf.AquaImageFactory.SlicedImageControl"/>
-<fullyQualifiedTypeName name="com.ad.list.LinkedList"/>
 <fullyQualifiedTypeName name="com.ad.list.List"/>
 <fullyQualifiedTypeName name="com.ad.set.Set.Visitor"/>
 <fullyQualifiedTypeName name="com.ad.tree.RBTree"/>
@@ -25,10 +18,8 @@
 <fullyQualifiedTypeName name="com.sun.corba.se.impl.orbutil.graph.Node"/>
 <fullyQualifiedTypeName name="java.util.Comparator"/>
 <fullyQualifiedTypeName name="com.sun.org.apache.regexp.internal.recompile"/>
-<fullyQualifiedTypeName name="java.lang.NullPointerException"/>
 <fullyQualifiedTypeName name="com.ad.map.TreeMap.Node"/>
 <fullyQualifiedTypeName name="com.sun.java.util.jar.pack.ConstantPool.Index"/>
-<fullyQualifiedTypeName name="java.lang.Object"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="com.ad.printer.BinaryTreeTool"/>
 <fullyQualifiedTypeName name="com.ad.printer.BinaryTreeInfo"/>
@@ -46,11 +37,8 @@
 <fullyQualifiedTypeName name="com.ad.file.FileInfo"/>
 <fullyQualifiedTypeName name="java.util.Queue"/>
 <fullyQualifiedTypeName name="java.util.LinkedList"/>
-<fullyQualifiedTypeName name="com.ad.map.Map"/>
 <fullyQualifiedTypeName name="com.ad.tool.TimeUtil"/>
 <fullyQualifiedTypeName name="com.ad.tool.AssertUtil"/>
-<fullyQualifiedTypeName name="com.ad.map.HashMap"/>
-<fullyQualifiedTypeName name="com.ad.map.TreeMap"/>
 <fullyQualifiedTypeName name="java.lang.Override"/>
 <fullyQualifiedTypeName name="K"/>
 <fullyQualifiedTypeName name="V"/>
@@ -59,5 +47,17 @@
 <fullyQualifiedTypeName name="com.ad.map.HashMap.Node"/>
 <fullyQualifiedTypeName name="java.util.Objects"/>
 <fullyQualifiedTypeName name="com.ad.map.LinkedHashMap.LinkedNode"/>
+<fullyQualifiedTypeName name="com.ad.map.Map"/>
+<fullyQualifiedTypeName name="com.ad.map.TreeMap"/>
+<fullyQualifiedTypeName name="java.lang.NullPointerException"/>
 <fullyQualifiedTypeName name="com.ad.map.LinkedHashMap"/>
+<fullyQualifiedTypeName name="com.ad.map.HashMap"/>
+<fullyQualifiedTypeName name="java.util.Set"/>
+<fullyQualifiedTypeName name="java.util.HashSet"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="java.lang.Object"/>
+<fullyQualifiedTypeName name="java.sql.Array"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
 </qualifiedTypeNameHistroy>
