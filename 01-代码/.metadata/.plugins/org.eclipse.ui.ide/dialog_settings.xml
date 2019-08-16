@@ -14,6 +14,7 @@
 		<item key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID" value="false"/>
 		<item key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED" value="false"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="/Users/jingshi/Documents/zhong/DSAL/源码/day01-20"/>
 			<item value="/Users/jingshi/Documents/zhong/DSAL/源码/day01-19/代码/12-堆"/>
 			<item value="/Users/jingshi/Documents/zhong/DSAL/源码/day01-18/代码/12-堆"/>
 			<item value="/Users/jingshi/Documents/zhong/DSAL/源码/day01-17/代码/10-映射"/>
@@ -33,7 +34,6 @@
 			<item value="/Users/jingshi/Documents/zhong/DSAL/源码/day06/代码"/>
 			<item value="/Users/jingshi/Documents/zhong/DSAL/源码/day05/代码/00-leetcode"/>
 			<item value="/Users/jingshi/Documents/zhong/DSAL/源码/day05/代码"/>
-			<item value="/Users/jingshi/Documents/zhong/DSAL/源码/day04/代码/03-链表"/>
 		</list>
 		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
 			<item value=""/>
