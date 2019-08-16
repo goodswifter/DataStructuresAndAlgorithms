@@ -9,13 +9,36 @@ public class BinaryHeap<E> extends AbstractHeap<E> implements Heap<E>, BinaryTre
 	private E[] elements;
 	private static final int DEFAULT_CAPACITY = 10;
 	
+	
+	
+	public BinaryHeap(E[] elements, Comparator<E> comparator) {
+		super(comparator);
+		
+		if (elements == null || elements.length == 0) {
+			this.elements = (E[]) new Object[DEFAULT_CAPACITY];
+		} else {
+			size = elements.length;
+			int capacity = Math.max(elements.length, DEFAULT_CAPACITY);
+			this.elements = (E[]) new Object[capacity];
+			for (int i = 0; i < elements.length; i++) {
+				this.elements[i] = elements[i];
+			}
+			
+			// 二叉堆化/批量建堆
+			heapify();
+		}
+	}
+
 	public BinaryHeap() {
-		this(null);
+		this(null, null);
 	}
 	
 	public BinaryHeap(Comparator<E> comparator) {
-		super();
-		this.elements = (E[]) new Object[DEFAULT_CAPACITY];
+		this(null, comparator);
+	}
+	
+	public BinaryHeap(E[] elements) {
+		this(elements, null);
 	}
 
 	@Override
@@ -52,16 +75,94 @@ public class BinaryHeap<E> extends AbstractHeap<E> implements Heap<E>, BinaryTre
 
 	@Override
 	public E remove() {
-		return null;
+		emptyCheck();
+		
+		E root = elements[0];
+		int lastIndex = --size;
+		elements[0] = elements[lastIndex];
+		elements[lastIndex] = null;
+	
+		// 下滤
+		siftDown(0);
+		
+		return root;
 	}
 
 	@Override
 	public E replace(E element) {
-		return null;
+		elementNotNullCheck(element);
+		
+		E root = null;
+		if (size == 0) {
+			elements[0] = element;
+			size++;
+		} else {
+			root = elements[0];
+			elements[0] = element;
+			siftDown(0);
+		}
+		
+		return root;
+	}
+
+
+	/**
+	 * 二叉堆化/批量建堆
+	 */
+	private void heapify() {
+		// 自上而下的上滤
+//		for (int i = 1; i < size; i++) {
+//			siftUp(i);
+//		}
+		
+		// 自下而上的下滤
+		// 从非叶子节点开始,自下而上下滤
+		for (int i = (size >> 1) - 1; i >= 0; i--) {
+			siftDown(i);
+		}
 	}
 
 	/**
-	 * 上滤
+	 * 让index位置的元素下滤
+	 * @param index
+	 */
+	private void siftDown(int index) {
+		E element = elements[index];
+		int half = size >> 1;
+		// 第一个叶子节点的索引 == 非叶子节点的数量
+		// index < 第一个叶子节点的索引
+		// 必须保证index位置是非叶子节点
+		while (index < half) {
+			// index的节点有2种情况
+			// 1. 只有左子节点
+			// 2. 同时有左右子节点
+			
+			// 默认跟左子节点跟它比较
+			int childIndex = (index << 1) + 1;
+			E child = elements[childIndex];
+			
+			// 右子节点索引
+			int rightIndex = childIndex + 1;
+			
+			// 选出左右子节点最大的那个
+			if (rightIndex < size && compare(elements[rightIndex], child) > 0) {
+				child = elements[childIndex = rightIndex];
+			}
+			
+			if (compare(element, child) >= 0) break;
+			
+			// 将子节点存放到index位置
+			elements[index] = child;
+			
+			// 重新设置index
+			index = childIndex;
+		}
+		
+		elements[index] = element;
+	}
+
+	/**
+	 * 让index位置的元素上滤
 	 * @param index
 	 */
 	private void siftUp(int index) {
